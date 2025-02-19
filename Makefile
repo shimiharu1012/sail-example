@@ -1,2 +1,2 @@
 sail:
-	vendor/bin/sail up -d
+	[ -f sail ] && sail || ./vendor/bin/sail up -d

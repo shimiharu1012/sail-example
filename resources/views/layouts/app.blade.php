@@ -12,13 +12,15 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="css/color.css">
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
-
+    <body class="font-sans antialiased background-color">
+        <div class="min-h-screen">
+            <!-- TODO：共通ヘッダーを読み込む -->
+            @include('layouts.announce-header')
+            @include('layouts.global-header')
             <!-- Page Heading -->
             @if (isset($header))
                 <header class="bg-white shadow">
@@ -27,11 +29,11 @@
                     </div>
                 </header>
             @endif
-
             <!-- Page Content -->
             <main>
                 {{ $slot }}
             </main>
+            @include('layouts.footer')
         </div>
     </body>
 </html>

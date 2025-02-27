@@ -30,7 +30,7 @@
                 </header>
             @endif
             <!-- Page Content -->
-            <main>
+            <main class="container pt-8">
                 {{ $slot }}
             </main>
             @include('layouts.footer')

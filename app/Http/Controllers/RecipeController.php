@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Recipe;
 
@@ -28,7 +29,14 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        //
+        $recipes= Recipe::select('recipes.id','recipes.title','recipes.description','recipes.created_at','recipes.image','users.name')
+            ->join('users','users.id','=','recipes.user_id')
+            ->orderBy('recipes.created_at','desc')
+            ->get();
+
+        $categories=Category::all();
+        // dd($categories);
+        return view('recipes.index',compact('recipes','categories'));
     }
 
     /**

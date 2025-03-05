@@ -5,6 +5,8 @@
             @include('recipes.partial.horizantal-card')
         @endforeach
         </div>
+        {{-- TODO: formの値を入力後も残したい --}}
+        {{-- 各カードで星の数も表示したい　それに伴ってクエリを変更した方が良いかも --}}
         <div class="col-span-1 bg-white p-4 h-fit sticky top-4">
             <form action="{{route('index')}}" method="GET" class="flex flex-col gap-4">
                 <div class="flex">

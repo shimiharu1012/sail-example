@@ -34,20 +34,16 @@ class RecipeController extends Controller
         $fillters=$request->all();
         // dd($posts['title']);
         
-        //TODO: formによるレシピ一覧の絞り込みを実装
-        //ragingは，紐づく平均評価で絞る
-
-        // 1. 条件を満たすレコードを全て抽出するクエリ
-        // 2. それらのratingをすべて足し合わせる
+        
 
         $query=Recipe::query()->select('recipes.id','recipes.title','recipes.description','recipes.created_at','recipes.image','users.name')
             ->join('users','users.id','=','recipes.user_id')
             ->join('reviews','reviews.recipe_id','=','recipes.id')
             ->orderBy('recipes.created_at', 'desc');
-            
-        if(!empty($fillters)){
-            if(!empty($fillters['rating'])){
-                // dd($fillters['rating']);
+        
+            if(!empty($fillters)){
+                // TODO：データの重複はこのクエリが原因な気がするので修正
+                if(!empty($fillters['rating'])){
                 $avgRatingsEachRecipes=Review::selectRaw('recipe_id, AVG(rating) as avg_rating')->groupBy('recipe_id');
                 $query->JoinSub($avgRatingsEachRecipes,'avg_ragings_each_recipes',function (JoinClause $join) {
                     $join->on('recipes.id','=','avg_ragings_each_recipes.recipe_id');
@@ -62,7 +58,7 @@ class RecipeController extends Controller
                 $query->where('recipes.title','like','%'.$fillters['title'].'%');
             }
         }
-        $recipes=$query->get();
+        $recipes=$query->paginate(5);
         // dd($recipes);
         $categories=Category::all();
         // dd($fillters['categories']);

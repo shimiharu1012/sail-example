@@ -1,9 +1,12 @@
 <x-app-layout>
     <div class="grid grid-cols-3 gap-2">
         <div class="col-span-2 bg-white rounded p-4">
+        {{Breadcrumbs::render('index')}}
+        <div class="mb-4"></div>
         @foreach ($recipes as $recipe)
             @include('recipes.partial.horizantal-card')
         @endforeach
+        {{$recipes->links()}}
         </div>
         {{-- TODO: formの値を入力後も残したい --}}
         {{-- 各カードで星の数も表示したい　それに伴ってクエリを変更した方が良いかも --}}

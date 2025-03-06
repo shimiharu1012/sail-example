@@ -15,23 +15,24 @@
                 <div>
                     <label class=" font-bold">評価</label>
                     <div>
-                        <input type="radio" name="rating" value="0" id="rating0" checked/>
+                        <input type="radio" name="rating" value="0" id="rating0" {{($fillters['rating'] ?? null )==(null|'0')? 'checked': ''}}/>
                         <label for="rating0">指定しない</label>
                     </div>
                     <div>
-                        <input type="radio" name="rating" value="3" id="rating3" checked/>
-                        <label for="rating0">3以上</label>
+                        <input type="radio" name="rating" value="3" id="rating3" {{($fillters['rating'] ?? null)=='3' ? 'checked': ''}}/>
+                        <label for="rating3">3以上</label>
                     </div>
                     <div>
-                        <input type="radio" name="rating" value="4" id="rating4" checked/>
-                        <label for="rating0">4以上</label>
+                        <input type="radio" name="rating" value="4" id="rating4" {{($fillters['rating'] ?? null )=='4' ? 'checked': ''}}/>
+                        <label for="rating4">4以上</label>
                     </div>
                 </div>
                 <div>
                     <label class=" font-bold">カテゴリ</label>
+                    {{-- {{$fillters['categories']}} --}}
                     @foreach($categories as $category)
                     <div>
-                        <input type="checkbox" name="categories[]" value="{{$category['id']}}"/>
+                        <input type="checkbox" name="categories[]" value="{{$category['id']}}" {{in_array($category['id'],($fillters['categories']) ?? [])? 'checked':''}}/>
                         <label for="rating0">{{$category['name']}}</label>
                     </div>
                     @endforeach
